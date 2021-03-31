@@ -10,6 +10,8 @@ var questionElement = document.querySelector("#questions");
 var timerElement = document.querySelector("#time");
 // Multiple choice section of html
 var questionChoices = document.querySelector("#choices");
+// High score screen
+var highScore = document.querySelector('#end-screen');
 
 
 // This function begins the quiz, hiding the start screen & displaying the first question.
@@ -19,13 +21,27 @@ function startQuiz() {
     startScreen.setAttribute('class', 'hide');
     questionElement.removeAttribute('class');
     getQuestion();
+    countdown();
 }
 
 // Calling the above function on start btn click
 startBtn.onclick = startQuiz
 
 // This function starts the timer
-
+function countdown() {
+  
+    var timeInterval = setInterval(function () {
+      time--;
+      timerElement.textContent = time + " Seconds Remaining.";
+  
+      if(time <= 0) {
+        clearInterval(timeInterval);
+        questionElement.setAttribute('class', 'hide');
+        highScore.removeAttribute('class');
+      }
+      
+    }, 1000);
+  }
 
 // This function gets the current question that we are on and appends it to the page by pulling the values from the array of questions we defined in our questions.js doc.
 function getQuestion() {
@@ -49,7 +65,7 @@ function getQuestion() {
     // Function for checking whether the user selected to correct answer. Adds a point to local storage if right, subtracts time if wrong, displays correct / incorrect.
     function getAnswer (event) {
         var userAnswer = userChoice.addEventListener('click', getAnswer)
-        
+
         // if/else needs to be fixed.
         if (userAnswer === userChoice){
             console.log(userAnswer);

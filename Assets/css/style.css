@@ -1,0 +1,31 @@
+/* Critical line of code that hides elements based on whether they are in use or not in js */
+.hide {
+    display: none;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+#questions {
+    display: flex;
+    flex-direction: column;
+}
+
+#choices {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 33%;
+}
+
+.choice {
+    background-color: greenyellow;
+    flex: 0 0 33%;
+}

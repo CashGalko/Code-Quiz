@@ -1,6 +1,6 @@
 // This is an array of Objects.
 // Use this notation to pull info from objects.
-console.log(questions[0].choice[3]);
+
 
 var questions = [
     {
