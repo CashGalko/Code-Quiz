@@ -1,9 +1,3 @@
-// local storage to store / clear highscores
-
-// Using display settings in css to show / hide questions
-
-// On click events to compare correct and incorrect answers
-
 // This is an array of Objects.
 // Use this notation to pull info from objects.
 console.log(questions[0].choice[3]);
