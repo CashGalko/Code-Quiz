@@ -1,10 +1,12 @@
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
 var score = 0;
-
+var highScore = [];
 
 // Start button
 var startBtn = document.querySelector("#start");
+// start screen element
+var startScreen = document.querySelector("#start-screen");
 // Questions area of html
 var questionElement = document.querySelector("#questions");
 // timer section of html
@@ -28,16 +30,26 @@ console.log(choiceBtn1El, choiceBtn2El, choiceBtn3El, choiceBtn4El);
 
 var choiceBtnArray = [choiceBtn1El, choiceBtn2El, choiceBtn3El, choiceBtn4El] 
 
+// Takes you straight to the highscores page.
+var highScoresBtn = document.querySelector('#view-highscore');
+highScoresBtn.onclick = highScoreLog;
 
-// This function begins the quiz, hiding the start screen & displaying the first question.
+// This function begins the quiz, hiding the start screen & displaying the first question. It also resets all of the relevant variables to their starting values for replayability. 
 function startQuiz() {
-    var startScreen = document.querySelector("#start-screen")
-    // The "hide" class below needs to have a CSS class that has display: none to hide the start screen.
+    
+    score = 0;
+    currentQuestionIndex = 0;
+    time = questions.length * 15;
+    console.log(score);
+    console.log(currentQuestionIndex);
+    document.querySelector('nav').removeAttribute('class');
     startScreen.setAttribute('class', 'hide');
+    endScreenElement.setAttribute('class', 'hide');
+    highScoreElement.setAttribute('class', 'hide');
     questionElement.removeAttribute('class');
     getQuestion();
     countdown();
-    score = 0
+    
 }
 
 // Calling the above function on start btn click
@@ -109,7 +121,7 @@ function scoreIncrease(){
 // Function needed to check the user's choice to the answer value to determine whether or not its correct. 
 function getAnswer(userChoice) {
     console.log(userChoice);
-    
+    // This throws an undefined error when moving past the final question, but it doesnt break the application at all so *shrug*
     if (userChoice === questions[currentQuestionIndex].answer) {
 
       currentQuestionIndex++;
@@ -146,9 +158,25 @@ function endGame() {
 
 scoreSubmit.onclick = highScoreLog;
 
+// Function to hide all elements on the page except high score log. Need to make it create ul for highscores info pulled from the local storage.
 function highScoreLog() {
-  localStorage.setItem("score", score);
-  localStorage.setItem('initials', document.querySelector('#initials').value)
+  localStorage.setItem("score", score + document.querySelector('#initials').value);
+  // localStorage.setItem('initials', document.querySelector('#initials').value)
   endScreenElement.setAttribute('class', 'hide');
+  startScreen.setAttribute('class', 'hide');
   highScoreElement.removeAttribute('class');
+  createHighscore();
 }
+
+function createHighscore(){
+  var scoreLog = JSON.parse(localStorage.getItem('score'));
+  console.log(scoreLog);
+}
+
+// restart the quiz.
+var playAgainBtn = document.querySelector('#play-again');
+playAgainBtn.onclick = startQuiz;
+
+// Clear local storage.
+var clearStorageBtn = document.querySelector('#clear-score');
+clearStorageBtn.onclick = localStorage.clear();
