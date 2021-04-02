@@ -11,8 +11,12 @@ var questionElement = document.querySelector("#questions");
 var timerElement = document.querySelector("#time");
 // Multiple choice section of html
 var questionChoices = document.querySelector("#choices");
-// High score screen
+// Submit Score screen
 var endScreenElement = document.querySelector('#end-screen');
+// Score submit button on end screen
+var scoreSubmit = document.querySelector('#submit');
+//Highscore Screen
+var highScoreElement = document.querySelector('#high-score');
 
 
 var choiceBtn1El = document.querySelector("#choice1");
@@ -37,7 +41,7 @@ function startQuiz() {
 }
 
 // Calling the above function on start btn click
-startBtn.onclick = startQuiz
+startBtn.onclick = startQuiz;
 
 // This function starts the timer
 function countdown() {
@@ -49,7 +53,7 @@ function countdown() {
       if(time <= 0) {
         clearInterval(timeInterval);
         questionElement.setAttribute('class', 'hide');
-        endScreenElement.removeAttribute('class');
+        highScoreElement.removeAttribute('class');
       }
       
     }, 1000);
@@ -99,7 +103,7 @@ function timerSubtract() {
 function scoreIncrease(){
   score++;
   console.log(score);
-  localStorage.setItem("score", score);
+  
 }
 
 // Function needed to check the user's choice to the answer value to determine whether or not its correct. 
@@ -133,8 +137,18 @@ function checkStatus() {
 }
 // Function to end the game. hides the necessary html elements and logs the final score.
 function endGame() {
-    timerElement.setAttribute('class', 'hide');
-    questionElement.setAttribute('class', 'hide');
-    endScreenElement.removeAttribute('class');
-    document.querySelector('#final-score').textContent = score
+  document.querySelector('nav').setAttribute('class', 'hide');
+  questionElement.setAttribute('class', 'hide');
+  endScreenElement.removeAttribute('class');
+  document.querySelector('#final-score').textContent = score
+    
+}
+
+scoreSubmit.onclick = highScoreLog;
+
+function highScoreLog() {
+  localStorage.setItem("score", score);
+  localStorage.setItem('initials', document.querySelector('#initials').value)
+  endScreenElement.setAttribute('class', 'hide');
+  highScoreElement.removeAttribute('class');
 }
