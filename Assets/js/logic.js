@@ -12,7 +12,8 @@ var timerElement = document.querySelector("#time");
 // Multiple choice section of html
 var questionChoices = document.querySelector("#choices");
 // High score screen
-var highScore = document.querySelector('#end-screen');
+var endScreenElement = document.querySelector('#end-screen');
+
 
 var choiceBtn1El = document.querySelector("#choice1");
 var choiceBtn2El = document.querySelector("#choice2");
@@ -32,6 +33,7 @@ function startQuiz() {
     questionElement.removeAttribute('class');
     getQuestion();
     countdown();
+    score = 0
 }
 
 // Calling the above function on start btn click
@@ -47,7 +49,7 @@ function countdown() {
       if(time <= 0) {
         clearInterval(timeInterval);
         questionElement.setAttribute('class', 'hide');
-        highScore.removeAttribute('class');
+        endScreenElement.removeAttribute('class');
       }
       
     }, 1000);
@@ -89,23 +91,8 @@ choiceBtn4El.addEventListener('click', function() {
 // throw in a score tracker function that incriments score when run. 
 // throw in a timer function that subtracets timer by 10 seconds 
 
-
-function getAnswer(userChoice) {
-    console.log(userChoice);
-    if (userChoice === questions[currentQuestionIndex].answer) {
-
-      currentQuestionIndex++;
-      getQuestion();
-      scoreIncrease();
-    } else {
-      currentQuestionIndex++;
-      getQuestion();
-      timerSubtract();
-    }
-}
-
 function timerSubtract() {
-
+  time -= 10;
   console.log(time);
 }
 
@@ -113,4 +100,41 @@ function scoreIncrease(){
   score++;
   console.log(score);
   localStorage.setItem("score", score);
+}
+
+// Function needed to check the user's choice to the answer value to determine whether or not its correct. 
+function getAnswer(userChoice) {
+    console.log(userChoice);
+    
+    if (userChoice === questions[currentQuestionIndex].answer) {
+
+      currentQuestionIndex++;
+      checkStatus();
+      scoreIncrease();
+      getQuestion();
+
+    } else {
+      currentQuestionIndex++;
+      checkStatus();
+      timerSubtract();
+      getQuestion();
+    }
+
+}
+
+
+// Function to check whether or not the game needs to end.
+function checkStatus() {
+  
+  if (currentQuestionIndex >= questions.length) {
+    endGame();
+  }
+  
+}
+// Function to end the game. hides the necessary html elements and logs the final score.
+function endGame() {
+    timerElement.setAttribute('class', 'hide');
+    questionElement.setAttribute('class', 'hide');
+    endScreenElement.removeAttribute('class');
+    document.querySelector('#final-score').textContent = score
 }

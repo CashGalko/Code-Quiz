@@ -14,13 +14,6 @@ nav {
    
 }
 
-#questions {
-    display: flex;
-    flex-direction: column;
-}
-
-
-
 .choice {
    display: flex;
    flex-direction: column;
