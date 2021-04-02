@@ -165,18 +165,23 @@ function highScoreLog() {
   endScreenElement.setAttribute('class', 'hide');
   startScreen.setAttribute('class', 'hide');
   highScoreElement.removeAttribute('class');
-  createHighscore();
+  // createHighscore();
 }
 
-function createHighscore(){
-  var scoreLog = JSON.parse(localStorage.getItem('score'));
-  console.log(scoreLog);
-}
+// function createHighscore(){
+//   // var scoreLog = JSON.parse(localStorage.getItem('score'));
+//   console.log(scoreLog);
+// In this function I need to find a way to parse the local storage into an array so i can use .sort on it and get the values stored from high to low. Then I need to run a for loop on the array to create a <ul> with the <li>s being the stored values in the array. Unfortunately Im not exactly sure where to start on this & will have to come back to it when I have a bit more time. But here's the pseudocode.
+// }
 
 // restart the quiz.
 var playAgainBtn = document.querySelector('#play-again');
 playAgainBtn.onclick = startQuiz;
 
 // Clear local storage.
+function clearStorage() {
+  localStorage.clear();
+  highScore = [];
+}
 var clearStorageBtn = document.querySelector('#clear-score');
-clearStorageBtn.onclick = localStorage.clear();
+clearStorageBtn.onclick = clearStorage;
