@@ -1,0 +1,41 @@
+TODO List
+
+CSS:
+
+1. The entire fucking style sheet. 
+
+2. The highscores link needs to be in a nav bar on the top left of the page.
+    The timer should be included in the nav bar on the top right of the page
+    This will likely be done through a .a change for highscores & .timer for timer
+
+3. Need to have a specific .hide class in css that has display:none in it to hide and show questions and answers as the quiz progresses. 
+
+4. I need to center the questions, choices & highscore pages vert & horizontally
+    Likely will need to be done with flexbox.
+
+5. No media query is needed for this code luckily. 
+
+
+Javascript:
+
+1. add a timer
+    Make sure the timer subtracts time when an incorrect answer is given
+    Make sure that when the timer reaches 0 the quiz ends and take user to highscore page
+
+2. Comparison if else statements to check whether the user has gotten the right choice or not
+    If they got the right choice, give them an invisable point in the local storage
+    Include a section below the choices that tells user if they got the question right or wrong. 
+
+3. Add a highscore list that tallies score and store info in the local storage.
+    Pull data from local storage to create a high score list
+    Include a button that clears the local data
+    Include a button that restarts the quiz
+
+4. An onclick event for the view highscores div that takes user directly to the highscore page.
+
+
+
+HTML:
+
+1. Nothing that I can think of at the moment. Any changes will become apparent as I write the js / css
+

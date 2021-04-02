@@ -1,5 +1,6 @@
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
+var score = 0;
 
 
 // Start button
@@ -12,6 +13,15 @@ var timerElement = document.querySelector("#time");
 var questionChoices = document.querySelector("#choices");
 // High score screen
 var highScore = document.querySelector('#end-screen');
+
+var choiceBtn1El = document.querySelector("#choice1");
+var choiceBtn2El = document.querySelector("#choice2");
+var choiceBtn3El = document.querySelector("#choice3");
+var choiceBtn4El = document.querySelector("#choice4");
+
+console.log(choiceBtn1El, choiceBtn2El, choiceBtn3El, choiceBtn4El);
+
+var choiceBtnArray = [choiceBtn1El, choiceBtn2El, choiceBtn3El, choiceBtn4El] 
 
 
 // This function begins the quiz, hiding the start screen & displaying the first question.
@@ -47,28 +57,60 @@ function countdown() {
 function getQuestion() {
     var currentQuestion = questions[currentQuestionIndex];
     var titleElement = document.querySelector("#question-title");
+    
     // log is just to check that it's pulling the correct info from the array
     console.log(currentQuestion);
 
     titleElement.textContent = currentQuestion.title;
 
-    // for loop to create each of the buttons needed for the multiple choice.
-    for (var i = 0; i < currentQuestion.choice.length; i++) {
-        var userChoice = document.createElement("button");
-        // the class "choice" will need to have CSS styling.
-        userChoice.setAttribute('class', 'choice');
-        userChoice.setAttribute('value', currentQuestion.choice[i]);
-        userChoice.textContent = i + 1 + "." + currentQuestion.choice[i];
+    for (var i = 0; i < choiceBtnArray.length; i++) {
+      choiceBtnArray[i].textContent = currentQuestion.choice[i];
 
-        questionChoices.appendChild(userChoice);
     }
-    // Function for checking whether the user selected to correct answer. Adds a point to local storage if right, subtracts time if wrong, displays correct / incorrect.
-    function getAnswer (event) {
-        var userAnswer = userChoice.addEventListener('click', getAnswer)
+       
+    
+}
 
-        // if/else needs to be fixed.
-        if (userAnswer === userChoice){
-            console.log(userAnswer);
-        }
+// Function for checking whether the user selected to correct answer. Adds a point to local storage if right, subtracts time if wrong, displays correct / incorrect.
+choiceBtn1El.addEventListener('click', function() {
+  getAnswer(0);
+  var userChoice = 0
+});
+choiceBtn2El.addEventListener('click', function() {
+  getAnswer(1);
+});
+choiceBtn3El.addEventListener('click', function() {
+  getAnswer(2);
+});
+choiceBtn4El.addEventListener('click', function() {
+  getAnswer(3);
+});
+
+// throw in a score tracker function that incriments score when run. 
+// throw in a timer function that subtracets timer by 10 seconds 
+
+
+function getAnswer(userChoice) {
+    console.log(userChoice);
+    if (userChoice === questions[currentQuestionIndex].answer) {
+
+      currentQuestionIndex++;
+      getQuestion();
+      scoreIncrease();
+    } else {
+      currentQuestionIndex++;
+      getQuestion();
+      timerSubtract();
     }
+}
+
+function timerSubtract() {
+
+  console.log(time);
+}
+
+function scoreIncrease(){
+  score++;
+  console.log(score);
+  localStorage.setItem("score", score);
 }
